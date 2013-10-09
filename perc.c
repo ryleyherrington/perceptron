@@ -7,7 +7,15 @@ struct Data {
    float x,y,z;
 };
 
-std::vector<float> p_train(std::vector<Data> data, int epochs) 
+int dotprod(std::vector<float> x, std::vector<float> w)
+{
+	dotprod = 0;	
+	for (int i =0; i<x.size(), i++){
+		dotprod+= (x[i] * w[i]);		
+	}
+}
+
+std::vector<float> p_train(std::vector<Data> data, int epochs, bool shuffled=0) 
 {
     std::vector<float> w;//initializes to all 0's
 
@@ -25,6 +33,26 @@ std::vector<float> p_train(std::vector<Data> data, int epochs)
 
     return w;
 }
+
+/* Python version
+ * def p_train(xs,  ys, shuffled=False, epoch=0):
+ * 		w=list(repeat(0, len(xs[0]))
+ * 		dotprod=lambda x,w: 
+ * 			sum(imap(mul, x, w)
+ * 			updated =True
+ *		data = zip(xs, ys)
+ *		if epoch:
+ *			data= data[:epoch]
+ *			while updated:
+ *				if shuffled:
+ *					random.shuffle(data)
+ *				updated = False
+ *				for x,y in data:
+ *					if dotprod(x,w) * y <=0:
+ *						w = [y* xi + wi fpr xi wi in izip(x,w)]
+ *						updated=True
+ *			return lambda x: -(w[0] + x * w[1]/w[2]
+ */
 
 
 float p_classify(float x, std::vector<float> w) 
